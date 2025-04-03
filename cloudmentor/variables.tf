@@ -45,12 +45,6 @@ variable "kv_sku_name" {
   default     = "standard"
 }
 
-variable "aks_kubernetes_version" {
-  type        = string
-  description = "Kubernetes version for the AKS"
-
-}
-
 
 variable "aks_rg_name" {
   type        = string
