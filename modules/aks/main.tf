@@ -20,6 +20,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     node_count          = 1
     os_disk_size_gb = 64
     temporary_name_for_rotation = "systempool1"    
+    orchestrator_version = var.kubernetes_version
   }
 
   identity {
@@ -35,6 +36,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "spotpool" {
   temporary_name_for_rotation = "spotpool"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size                = "Standard_D2s_v3"
+  orchestrator_version   = var.kubernetes_version
   
   mode     = "User"
   node_count = 1

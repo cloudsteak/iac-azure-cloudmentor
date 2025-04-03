@@ -28,7 +28,7 @@ module "AKS" {
   rg_name            = var.aks_rg_name
   location           = var.location
   name               = var.aks_name
-  kubernetes_version = var.aks_kubernetes_version
+  kubernetes_version = "1.31.2"
 
   default_tags = var.default_tags
 }
