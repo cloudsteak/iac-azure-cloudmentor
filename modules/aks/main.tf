@@ -32,6 +32,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "spotpool" {
   name                = "spotpool1"
+  temporary_name_for_rotation = "spotpool"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size                = "Standard_D2s_v3"
   
