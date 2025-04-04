@@ -50,6 +50,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "spotpool" {
   spot_max_price   = 0.015
   os_disk_size_gb = 64
   os_disk_type     = "Managed"
+
+   node_taints = ["kubernetes.azure.com/scalesetpriority=spot:NoSchedule"]
+
   
   # Autoscaler settings
   auto_scaling_enabled = true
