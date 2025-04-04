@@ -72,3 +72,27 @@ resource "azurerm_role_assignment" "terraform_keyvault" {
   principal_id         = data.azurerm_client_config.current.object_id
   depends_on           = [module.AKS, module.KEY_VAULT]
 }
+
+
+module "ingress" {
+  source = "../modules/ingress"
+
+  namespace                = "ingress-nginx"
+  name                     = "ingress-nginx"
+  chart_version            = "4.11.5"
+  create_namespace         = true
+  service_type             = "LoadBalancer"
+  controller_replica_count = 2
+  extra_annotations = {
+
+  }
+
+  depends_on = [module.AKS, azurerm_key_vault_secret.kube_config_raw]
+}
+
+
+module "certmanager" {
+  source            = "../modules/certmanager"
+  namespace         = "cert-manager"
+  depends_on_module = module.ingress
+}
