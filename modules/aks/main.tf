@@ -18,7 +18,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name                = "systempool"
     vm_size             = "Standard_B2s"    # B2s
     node_count          = 1
-    os_disk_size_gb = 64
+    os_disk_type          = "Managed"
+    os_disk_size_gb       = 64
+
+    
     temporary_name_for_rotation = "systempool1"    
     orchestrator_version = var.kubernetes_version
   }
@@ -46,6 +49,10 @@ resource "azurerm_kubernetes_cluster_node_pool" "spotpool" {
   eviction_policy  = "Delete"
   spot_max_price   = 0.015
   os_disk_size_gb = 64
+  os_disk_type     = "Managed"
+
+   node_taints = ["kubernetes.azure.com/scalesetpriority=spot:NoSchedule"]
+
   
   # Autoscaler settings
   auto_scaling_enabled = true
